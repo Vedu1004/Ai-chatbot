@@ -16,7 +16,7 @@ const App = () => {
   const [inputText, setInputText] = useState("");
   const chatBoxRef = useRef(null);
 
-  const { transcript, browserSupportsSpeechRecognition } =
+  const { transcript, browserSupportsSpeechRecognition, resetTranscript } =
     useSpeechRecognition();
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const App = () => {
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInputText("");
     setIsLoading(true);
+    resetTranscript();
 
     try {
       const result = await model.generateContent(userMessage.content);
