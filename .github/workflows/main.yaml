@@ -1,0 +1,21 @@
+name: -workflow
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  CI-CD:
+    runs-on: ["self-hosted"]
+    steps:
+      - name: Code-Checkout
+        uses: actions/checkout@v3
+
+      # Add step to copy code to root folder
+      - name: Copy code to repositories
+        run: |
+          sudo mkdir -p /repositories
+          sudo rm -rf /repositories/ai-chatbot || true
+          sudo cp -r $GITHUB_WORKSPACE /repositories/ai-chatbot
+          sudo chown -R root:root /repositories/ai-chatbot
